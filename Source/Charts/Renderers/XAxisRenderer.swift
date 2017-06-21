@@ -227,8 +227,6 @@ open class XAxisRenderer: AxisRendererBase
             if viewPortHandler.isInBoundsX(position.x)
             {
                 let label = xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? ""
-
-                let labelns = label as NSString
                 
                 if xAxis.isAvoidFirstLastClippingEnabled
                 {

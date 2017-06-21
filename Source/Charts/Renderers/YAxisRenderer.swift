@@ -191,8 +191,11 @@ open class YAxisRenderer: AxisRendererBase
                 context.setLineDash(phase: 0.0, lengths: [])
             }
             
+            let from = yAxis.isDrawBottomYLabelEntryEnabled ? 0 : 1
+            let to = yAxis.isDrawTopYLabelEntryEnabled ? yAxis.entryCount : (yAxis.entryCount - 1)
+            
             // draw the grid
-            for i in 0 ..< positions.count
+            for i in stride(from: from, to: to, by: 1)
             {
                 drawGridLine(context: context, position: positions[i])
             }
