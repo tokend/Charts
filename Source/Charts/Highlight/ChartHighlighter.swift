@@ -15,9 +15,9 @@ import CoreGraphics
 open class ChartHighlighter : NSObject, IHighlighter
 {
     /// instance of the data-provider
-    open weak var chart: ChartDataProvider?
+    @objc open weak var chart: ChartDataProvider?
     
-    public init(chart: ChartDataProvider)
+    @objc public init(chart: ChartDataProvider)
     {
         self.chart = chart
     }
@@ -32,7 +32,7 @@ open class ChartHighlighter : NSObject, IHighlighter
     /// - returns: The corresponding x-pos for a given touch-position in pixels.
     /// - parameter x:
     /// - returns:
-    open func getValsForTouch(x: CGFloat, y: CGFloat) -> CGPoint
+    @objc open func getValsForTouch(x: CGFloat, y: CGFloat) -> CGPoint
     {
         guard let chart = self.chart as? BarLineScatterCandleBubbleChartDataProvider
             else { return CGPoint.zero }
@@ -46,7 +46,7 @@ open class ChartHighlighter : NSObject, IHighlighter
     /// - parameter x:
     /// - parameter y:
     /// - returns:
-    open func getHighlight(xValue xVal: Double, x: CGFloat, y: CGFloat) -> Highlight?
+    @objc open func getHighlight(xValue xVal: Double, x: CGFloat, y: CGFloat) -> Highlight?
     {
         guard let chart = chart
             else { return nil }
@@ -73,7 +73,7 @@ open class ChartHighlighter : NSObject, IHighlighter
     /// - parameter x: touch position
     /// - parameter y: touch position
     /// - returns:
-    open func getHighlights(xValue: Double, x: CGFloat, y: CGFloat) -> [Highlight]
+    @objc open func getHighlights(xValue: Double, x: CGFloat, y: CGFloat) -> [Highlight]
     {
         var vals = [Highlight]()
         
