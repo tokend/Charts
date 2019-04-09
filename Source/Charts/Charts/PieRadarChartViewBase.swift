@@ -532,7 +532,7 @@ open class PieRadarChartViewBase: ChartViewBase
             {
                 _decelerationLastTime = CACurrentMediaTime()
                 _decelerationDisplayLink = NSUIDisplayLink(target: self, selector: #selector(PieRadarChartViewBase.decelerationLoop))
-                _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+                _decelerationDisplayLink.add(to: RunLoop.main, forMode: .common)
             }
         }
     }
@@ -768,7 +768,7 @@ open class PieRadarChartViewBase: ChartViewBase
     {
         if _decelerationDisplayLink !== nil
         {
-            _decelerationDisplayLink.remove(from: RunLoop.main, forMode: RunLoopMode.commonModes)
+            _decelerationDisplayLink.remove(from: RunLoop.main, forMode: .common)
             _decelerationDisplayLink = nil
         }
     }
@@ -812,7 +812,7 @@ open class PieRadarChartViewBase: ChartViewBase
     
     @objc private func tapGestureRecognized(_ recognizer: NSUITapGestureRecognizer)
     {
-        if recognizer.state == NSUIGestureRecognizerState.ended
+        if recognizer.state == NSUIGestureRecognizer.State.ended
         {
             if !self.isHighLightPerTapEnabled { return }
             
@@ -826,21 +826,21 @@ open class PieRadarChartViewBase: ChartViewBase
     #if !os(tvOS)
     @objc private func rotationGestureRecognized(_ recognizer: NSUIRotationGestureRecognizer)
     {
-        if recognizer.state == NSUIGestureRecognizerState.began
+        if recognizer.state == NSUIGestureRecognizer.State.began
         {
             stopDeceleration()
             
             _startAngle = self.rawRotationAngle
         }
         
-        if recognizer.state == NSUIGestureRecognizerState.began || recognizer.state == NSUIGestureRecognizerState.changed
+        if recognizer.state == NSUIGestureRecognizer.State.began || recognizer.state == NSUIGestureRecognizer.State.changed
         {
             let angle = recognizer.nsuiRotation.RAD2DEG
             
             self.rotationAngle = _startAngle + angle
             setNeedsDisplay()
         }
-        else if recognizer.state == NSUIGestureRecognizerState.ended
+        else if recognizer.state == NSUIGestureRecognizer.State.ended
         {
             let angle = recognizer.nsuiRotation.RAD2DEG
             
@@ -857,7 +857,7 @@ open class PieRadarChartViewBase: ChartViewBase
                 {
                     _decelerationLastTime = CACurrentMediaTime()
                     _decelerationDisplayLink = NSUIDisplayLink(target: self, selector: #selector(PieRadarChartViewBase.decelerationLoop))
-                    _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+                    _decelerationDisplayLink.add(to: RunLoop.main, forMode: .common)
                 }
             }
         }

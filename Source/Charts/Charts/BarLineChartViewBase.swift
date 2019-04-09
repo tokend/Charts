@@ -524,7 +524,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             return
         }
         
-        if recognizer.state == NSUIGestureRecognizerState.ended
+        if recognizer.state == NSUIGestureRecognizer.State.ended
         {
             if !isHighLightPerTapEnabled { return }
             
@@ -550,7 +550,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             return
         }
         
-        if recognizer.state == NSUIGestureRecognizerState.ended
+        if recognizer.state == NSUIGestureRecognizer.State.ended
         {
             if _data !== nil && _doubleTapToZoomEnabled && (data?.entryCount ?? 0) > 0
             {
@@ -574,7 +574,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     #if !os(tvOS)
     @objc private func pinchGestureRecognized(_ recognizer: NSUIPinchGestureRecognizer)
     {
-        if recognizer.state == NSUIGestureRecognizerState.began
+        if recognizer.state == NSUIGestureRecognizer.State.began
         {
             stopDeceleration()
             
@@ -603,8 +603,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 }
             }
         }
-        else if recognizer.state == NSUIGestureRecognizerState.ended ||
-            recognizer.state == NSUIGestureRecognizerState.cancelled
+        else if recognizer.state == NSUIGestureRecognizer.State.ended ||
+            recognizer.state == NSUIGestureRecognizer.State.cancelled
         {
             if _isScaling
             {
@@ -615,7 +615,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 setNeedsDisplay()
             }
         }
-        else if recognizer.state == NSUIGestureRecognizerState.changed
+        else if recognizer.state == NSUIGestureRecognizer.State.changed
         {
             let isZoomingOut = (recognizer.nsuiScale < 1)
             var canZoomMoreX = isZoomingOut ? _viewPortHandler.canZoomOutMoreX : _viewPortHandler.canZoomInMoreX
@@ -664,7 +664,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     
     @objc private func panGestureRecognized(_ recognizer: NSUIPanGestureRecognizer)
     {
-        if recognizer.state == NSUIGestureRecognizerState.began && recognizer.nsuiNumberOfTouches() > 0
+        if recognizer.state == NSUIGestureRecognizer.State.began && recognizer.nsuiNumberOfTouches() > 0
         {
             stopDeceleration()
             
@@ -717,12 +717,12 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             }
             else if self.isHighlightPerDragEnabled
             {
-                // We will only handle highlights on NSUIGestureRecognizerState.Changed
+                // We will only handle highlights on NSUIGestureRecognizer.State.Changed
                 
                 _isDragging = false
             }
         }
-        else if recognizer.state == NSUIGestureRecognizerState.changed
+        else if recognizer.state == NSUIGestureRecognizer.State.changed
         {
             if _isDragging
             {
@@ -757,11 +757,11 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                 }
             }
         }
-        else if recognizer.state == NSUIGestureRecognizerState.ended || recognizer.state == NSUIGestureRecognizerState.cancelled
+        else if recognizer.state == NSUIGestureRecognizer.State.ended || recognizer.state == NSUIGestureRecognizer.State.cancelled
         {
             if _isDragging
             {
-                if recognizer.state == NSUIGestureRecognizerState.ended && isDragDecelerationEnabled
+                if recognizer.state == NSUIGestureRecognizer.State.ended && isDragDecelerationEnabled
                 {
                     stopDeceleration()
                     
@@ -769,7 +769,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
                     _decelerationVelocity = recognizer.velocity(in: self)
                     
                     _decelerationDisplayLink = NSUIDisplayLink(target: self, selector: #selector(BarLineChartViewBase.decelerationLoop))
-                    _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+                    _decelerationDisplayLink.add(to: RunLoop.main, forMode: .common)
                 }
                 
                 _isDragging = false
@@ -829,7 +829,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     {
         if _decelerationDisplayLink !== nil
         {
-            _decelerationDisplayLink.remove(from: RunLoop.main, forMode: RunLoopMode.commonModes)
+            _decelerationDisplayLink.remove(from: RunLoop.main, forMode: .common)
             _decelerationDisplayLink = nil
         }
     }
